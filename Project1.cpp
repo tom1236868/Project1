@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     string number = argv[1];
     //cout << number << endl;
     string Input_name(number + "/matrix.data");
-    string Output_name(number + "/output.data");
+    string Output_name(number + "/final.peak");
     //cout << Input_name << endl;
     fin.open(Input_name);
     if(!fin)
