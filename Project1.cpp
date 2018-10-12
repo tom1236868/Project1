@@ -27,7 +27,7 @@ int main(int argc, char* argv[])
     ifstream fin;
     ofstream fout;
     string number = argv[1];
-    cout << number << endl;
+    //cout << number << endl;
     string Input_name(number + "/matrix.data");
     string Output_name(number + "/output.data");
     //cout << Input_name << endl;
