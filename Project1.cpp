@@ -19,10 +19,10 @@ struct Peak
     int column;
 };
 
+long points[1001][1001];
 int main(int argc, char* argv[])
 {
     int n, m;
-    long Peak_value = 0;
     queue<Peak> Peak_List;
     ifstream fin;
     ofstream fout;
@@ -46,26 +46,49 @@ int main(int argc, char* argv[])
         return -1;
     }
     else cout << "Open" <<" " << Output_name << " " << "succeed!"<< endl;
+
     fin >> n >> m;
     //cout << n <<" " << m << endl;
     for(int i = 1; i<=n; i++)
     {
         for(int j = 1; j<=m; j++)
         {
-            long In;
-            fin >> In;
-            //cout<< In << endl;
-            if(In > Peak_value)
+            fin >> points[i][j];
+            //cout << i << " " << j << " " << points[i][j] << endl;
+        }
+    }
+    for(int k = 1; k<=n; k++)
+    {
+        for(int l = 1; l<=m; l++)
+        {
+            long This = points[k][l];
+            //cout << "This is " <<k  <<' '<< l << " " << points[k][l] << endl;
+            long Up;
+            if(k>1)
+                Up = points[k-1][l];
+            else
+                Up = -2147483648;
+            long Down;
+            if(k<n)
+                Down = points[k+1][l];
+            else
+                Down = -2147483648;
+            long Left;
+            if(l>1)
+                Left = points[k][l-1];
+            else
+                Left = -2147483648;
+            long Right;
+            if(l<m)
+                Right = points[k][l+1];
+            else
+                Right = -2147483648;
+            if(This >= Up && This >= Down && This >= Right && This >= Left)
             {
-                while(!Peak_List.empty())
-                    Peak_List.pop();
-                Peak_List.push(Peak(i,j));
-                Peak_value = In;
+                Peak_List.push(Peak(k,l));
+                //cout<<"PUSH" << " (" << k << ',' << l << ") " << "when U = " << Up <<" D = " << Down <<" L = " << Left <<" R = " << Right << endl;
             }
-            else if(In == Peak_value)
-            {
-                Peak_List.push(Peak(i,j));
-            }
+
         }
     }
     //cout << Peak_value << endl;
