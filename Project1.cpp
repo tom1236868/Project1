@@ -57,22 +57,12 @@ int main(int argc, char* argv[])
             //cout << i << " " << j << " " << points[i][j] << endl;
         }
     }
+
     for(int k = 1; k<=n; k++)
     {
         for(int l = 1; l<=m; l++)
         {
             long This = points[k][l];
-            //cout << "This is " <<k  <<' '<< l << " " << points[k][l] << endl;
-            long Up;
-            if(k>1)
-                Up = points[k-1][l];
-            else
-                Up = -2147483648;
-            long Down;
-            if(k<n)
-                Down = points[k+1][l];
-            else
-                Down = -2147483648;
             long Left;
             if(l>1)
                 Left = points[k][l-1];
@@ -83,12 +73,21 @@ int main(int argc, char* argv[])
                 Right = points[k][l+1];
             else
                 Right = -2147483648;
-            if(This >= Up && This >= Down && This >= Right && This >= Left)
+            if(This >= Left && This >= Right)
             {
-                Peak_List.push(Peak(k,l));
-                //cout<<"PUSH" << " (" << k << ',' << l << ") " << "when U = " << Up <<" D = " << Down <<" L = " << Left <<" R = " << Right << endl;
+                long Up;
+                if(k>1)
+                    Up = points[k-1][l];
+                else
+                    Up = -2147483648;
+                long Down;
+                if(k<n)
+                    Down = points[k+1][l];
+                else
+                    Down = -2147483648;
+                if(This >= Up && This >= Down)
+                    Peak_List.push(Peak(k,l));
             }
-
         }
     }
     //cout << Peak_value << endl;
